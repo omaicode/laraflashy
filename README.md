@@ -60,6 +60,7 @@ Laravel Modules documentation: [Laravel Modules](https://nwidart.com/laravel-mod
 First install admin: 
 
 ```bash
+php artisan admin:publish
 php artisan admin:install
 ```
 
