@@ -40,6 +40,13 @@ Config your composer.json
     "omaicode/laravel-admin-media-manager": "*@dev",
     "omaicode/laravel-admin-multi-language": "*@dev"
   },
+  "autoload": {
+        "psr-4": {
+            ...
+            "Modules\\": "modules/"
+            ...
+        }
+  },
   "repositories": [
     {
       "type": "path",
