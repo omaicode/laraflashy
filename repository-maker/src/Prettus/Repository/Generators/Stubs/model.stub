@@ -1,0 +1,31 @@
+<?php
+
+$NAMESPACE$
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+use Prettus\Repository\Contracts\Transformable;
+use Prettus\Repository\Traits\TransformableTrait;
+
+/**
+ * Class $CLASS$.
+ *
+ * @package $NAMESPACE$
+ */
+class $CLASS$ extends Model implements Transformable
+{
+    use TransformableTrait, HasFactory;
+
+    protected static function newFactory()
+    {
+        return \Modules\$MODULE$\Database\factories\$CLASS$Factory::new();
+    }    
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = $FILLABLE$;
+}

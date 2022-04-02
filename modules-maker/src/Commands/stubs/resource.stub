@@ -1,0 +1,42 @@
+<?php
+
+namespace $NAMESPACE$;
+
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Pagination\LengthAwarePaginator;
+
+class $CLASS$ extends JsonResource
+{
+    public function resourceIncluded($item)
+    {
+        //Return what you want to get
+
+        return [
+                     
+        ];
+    }
+
+    public function mapResource($items, $multiple = false) {
+        if($multiple) {
+            return array_map(function($item) {
+                return $this->resourceIncluded($item);
+            }, $items);
+        }
+
+        return $this->resourceIncluded($items);
+    }
+
+    public function toArray($request)
+    {
+        if($this->resource instanceof LengthAwarePaginator) {
+            return [
+                'per_page'      => $this->perPage(),
+                'current_page'  => $this->currentPage(),
+                'total'         => $this->total(),
+                'items'         => call_user_func([$this, 'mapResource'], $this->items(), true)
+            ];
+        } else {
+            return call_user_func([$this, 'mapResource'], parent::toArray($request), false);
+        }
+    }    
+}
