@@ -11,7 +11,7 @@ return [
     | login page.
     |
     */
-    'name' => 'Laravel-admin',
+    'name' => 'LaraFlashy',
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<b>Laravel</b> admin',
+    'logo' => 'Lara<b>Flashy</b>',
 
     /*
     |--------------------------------------------------------------------------
@@ -34,7 +34,7 @@ return [
     | '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo-mini' => '<b>La</b>',
+    'logo-mini' => '<b>LF</b>',
 
     /*
     |--------------------------------------------------------------------------
@@ -44,7 +44,7 @@ return [
     | This value is the path of laravel-admin bootstrap file.
     |
     */
-    'bootstrap' => app_path('Admin/bootstrap.php'),
+    'bootstrap' => base_path('modules/Admin/bootstrap.php'),
 
     /*
     |--------------------------------------------------------------------------
@@ -60,7 +60,7 @@ return [
 
         'prefix' => env('ADMIN_ROUTE_PREFIX', 'admin'),
 
-        'namespace' => 'App\\Admin\\Controllers',
+        'namespace' => 'Modules\\Admin\\Controllers',
 
         'middleware' => ['web', 'admin'],
     ],
@@ -75,7 +75,7 @@ return [
     | be set before running `artisan admin::install` to take effect.
     |
     */
-    'directory' => app_path('Admin'),
+    'directory' => base_path('modules/Admin'),
 
     /*
     |--------------------------------------------------------------------------
@@ -110,7 +110,7 @@ return [
     */
     'auth' => [
 
-        'controller' => App\Admin\Controllers\AuthController::class,
+        'controller' => Modules\Admin\Controllers\AuthController::class,
 
         'guard' => 'admin',
 
@@ -393,7 +393,7 @@ return [
     | When you use command `php artisan admin:extend` to generate extensions,
     | the extension files will be generated in this directory.
     */
-    'extension_dir' => app_path('Admin/Extensions'),
+    'extension_dir' => base_path('modules/Admin/Extensions'),
 
     /*
     |--------------------------------------------------------------------------
