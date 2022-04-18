@@ -28,7 +28,7 @@ move the casts from `$enumCasts` to `$casts`.
 Trait based casting is still present, but is now deprecated and will be removed in the next major version.
 
 ```diff
---use BenSampo\Enum\Traits\CastsEnums;
+--use Omaicode\Enum\Traits\CastsEnums;
 
 class MyModel extends Model
 {

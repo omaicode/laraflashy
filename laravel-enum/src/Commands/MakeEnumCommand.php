@@ -3,6 +3,7 @@
 namespace Omaicode\Enum\Commands;
 
 use Illuminate\Console\GeneratorCommand;
+use Str;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -28,6 +29,16 @@ class MakeEnumCommand extends GeneratorCommand
      * @var string
      */
     protected $type = 'Enum';
+
+    protected function rootNamespace()
+    {
+        if($this->argument('module')) {
+            $module = $this->argument('module');
+            return 'Modules\\'.$module.'\\';
+        }
+
+        return $this->laravel->getNamespace();
+    }    
 
     /**
      * Get the stub file for the generator.
@@ -62,7 +73,7 @@ class MakeEnumCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return "Modules\{$this->argument('module')}\Enums";
+        return "{$rootNamespace}\Enums";
     }
 
     /**
@@ -74,7 +85,7 @@ class MakeEnumCommand extends GeneratorCommand
     {
         return [
             ['name', InputArgument::REQUIRED, 'The name of enum will be used.'],
-            ['module', InputArgument::REQUIRED, 'The name of module will be used.']
+            ['module', InputArgument::OPTIONAL, 'The name of module will be used.']
         ];
     }    
 
@@ -89,4 +100,15 @@ class MakeEnumCommand extends GeneratorCommand
             ['flagged', 'f', InputOption::VALUE_NONE, 'Generate a flagged enum']
         ];
     }
+
+    protected function getPath($name)
+    {
+        $name = Str::replaceFirst($this->rootNamespace(), '', $name);
+        
+        if(!$this->argument('module')) {
+            return $this->laravel['path'].'/'.str_replace('\\', '/', $name).'.php';
+        }
+
+        return base_path('modules/').$this->argument('module').'/'.str_replace('\\', '/', $name).'.php';
+    }    
 }

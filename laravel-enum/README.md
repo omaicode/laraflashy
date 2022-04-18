@@ -96,7 +96,7 @@ Now, you just need to add the possible values your enum can have as constants.
 
 namespace App\Enums;
 
-use BenSampo\Enum\Enum;
+use Omaicode\Enum\Enum;
 
 final class UserType extends Enum
 {
@@ -475,7 +475,7 @@ You may cast model attributes to enums using Laravel 7.x's built in custom casti
 Since `Enum::class` implements the `Castable` contract, you just need to specify the classname of the enum:
 
 ```php
-use BenSampo\Enum\Tests\Enums\UserType;
+use Omaicode\Enum\Tests\Enums\UserType;
 use Illuminate\Database\Eloquent\Model;
 
 class Example extends Model
@@ -646,7 +646,7 @@ class CreateUsersTable extends Migration
 You may validate that an enum value passed to a controller is a valid value for a given enum by using the `EnumValue` rule.
 
 ```php
-use BenSampo\Enum\Rules\EnumValue;
+use Omaicode\Enum\Rules\EnumValue;
 
 public function store(Request $request)
 {
@@ -667,7 +667,7 @@ new EnumValue(UserType::class, false) // Turn off strict type checking.
 You can also validate on keys using the `EnumKey` rule. This is useful if you're taking the enum key as a URL parameter for sorting or filtering for example.
 
 ```php
-use BenSampo\Enum\Rules\EnumKey;
+use Omaicode\Enum\Rules\EnumKey;
 
 public function store(Request $request)
 {
@@ -682,7 +682,7 @@ public function store(Request $request)
 Additionally you can validate that a parameter is an instance of a given enum.
 
 ```php
-use BenSampo\Enum\Rules\Enum;
+use Omaicode\Enum\Rules\Enum;
 
 public function store(Request $request)
 {
@@ -713,7 +713,7 @@ You can also use the 'pipe' syntax for rules.
 Run the following command to publish the language files to your `resources/lang` folder.
 
 ```
-php artisan vendor:publish --provider="BenSampo\Enum\EnumServiceProvider" --tag="translations"
+php artisan vendor:publish --provider="Omaicode\Enum\EnumServiceProvider" --tag="translations"
 ```
 
 ### Enum descriptions
@@ -757,8 +757,8 @@ return [
 Now, you just need to make sure that your enum implements the `LocalizedEnum` interface as demonstrated below:
 
 ```php
-use BenSampo\Enum\Enum;
-use BenSampo\Enum\Contracts\LocalizedEnum;
+use Omaicode\Enum\Enum;
+use Omaicode\Enum\Contracts\LocalizedEnum;
 
 final class UserType extends Enum implements LocalizedEnum
 {
@@ -955,7 +955,7 @@ var_dump(UserType::getInstances());
 
 array(4) {
   'Administrator' =>
-  class BenSampo\Enum\Tests\Enums\UserType#415 (3) {
+  class Omaicode\Enum\Tests\Enums\UserType#415 (3) {
     public $key =>
     string(13) "Administrator"
     public $value =>
@@ -964,7 +964,7 @@ array(4) {
     string(13) "Administrator"
   }
   'Moderator' =>
-  class BenSampo\Enum\Tests\Enums\UserType#396 (3) {
+  class Omaicode\Enum\Tests\Enums\UserType#396 (3) {
     public $key =>
     string(9) "Moderator"
     public $value =>
@@ -973,7 +973,7 @@ array(4) {
     string(9) "Moderator"
   }
   'Subscriber' =>
-  class BenSampo\Enum\Tests\Enums\UserType#393 (3) {
+  class Omaicode\Enum\Tests\Enums\UserType#393 (3) {
     public $key =>
     string(10) "Subscriber"
     public $value =>
@@ -982,7 +982,7 @@ array(4) {
     string(10) "Subscriber"
   }
   'SuperAdministrator' =>
-  class BenSampo\Enum\Tests\Enums\UserType#102 (3) {
+  class Omaicode\Enum\Tests\Enums\UserType#102 (3) {
     public $key =>
     string(18) "SuperAdministrator"
     public $value =>
@@ -1008,5 +1008,5 @@ UserType::coerce(99); // Returns null (not a valid enum value)
 Run the following command to publish the stub files to the `stubs` folder in the root of your application.
 
 ```shell
-php artisan vendor:publish --provider="BenSampo\Enum\EnumServiceProvider" --tag="stubs"
+php artisan vendor:publish --provider="Omaicode\Enum\EnumServiceProvider" --tag="stubs"
 ```
