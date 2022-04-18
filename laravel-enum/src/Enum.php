@@ -51,6 +51,11 @@ abstract class Enum implements EnumContract, Castable, Arrayable, JsonSerializab
     protected static $constCacheArray = [];
 
     /**
+     * Module name
+     */
+    protected static $module = '';
+
+    /**
      * Construct an Enum instance.
      *
      * @param  mixed  $enumValue
@@ -499,7 +504,8 @@ abstract class Enum implements EnumContract, Castable, Arrayable, JsonSerializab
      */
     protected static function isLocalizable(): bool
     {
-        return isset(class_implements(static::class)[LocalizedEnum::class]);
+        // return isset(class_implements(static::class)[LocalizedEnum::class]);
+        return true;
     }
 
     /**
@@ -507,9 +513,10 @@ abstract class Enum implements EnumContract, Castable, Arrayable, JsonSerializab
      *
      * @return string
      */
-    public static function getLocalizationKey(): string
+    protected static function getLocalizationKey(): string
     {
-        return 'enums.' . static::class;
+        $module = self::$module ? self::$module.'.' : '';
+        return $module.'enums';
     }
 
     /**
@@ -583,5 +590,13 @@ abstract class Enum implements EnumContract, Castable, Arrayable, JsonSerializab
     public function __toString(): string
     {
         return (string) $this->value;
+    }
+
+    /**
+     * Convert to html bootstrap badge
+     */
+    public function badge($class = '')
+    {
+        return '<span class="badge '.$class.'">'.$this->description.'</span>';
     }
 }
