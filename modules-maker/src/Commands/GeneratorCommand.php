@@ -41,7 +41,7 @@ abstract class GeneratorCommand extends Command
         }
 
         $contents = $this->getTemplateContents();
-
+        
         try {
             $overwriteFile = $this->hasOption('force') ? $this->option('force') : false;
             (new FileGenerator($path, $contents))->withFileOverwrite($overwriteFile)->generate();

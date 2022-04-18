@@ -67,7 +67,7 @@ class MakeCommand extends GeneratorCommand
         }
 
         $this->generator = new ResourceGenerator($this->modelName);
-
+        
         if ($this->option('output')) {
             return $this->output($this->modelName);
         }
@@ -226,7 +226,32 @@ class MakeCommand extends GeneratorCommand
     protected function getNameInput()
     {
         $this->type = $this->qualifyClass($this->controllerName);
-
         return $this->controllerName;
     }
+
+    /**
+     * Get the root namespace for the class.
+     *
+     * @return string
+     */
+    protected function rootNamespace()
+    {
+        $namespace = config('admin.route.namespace', 'App\\Admin\\Controllers');
+        if(explode('\\', $namespace)[0] == 'Modules') {
+            return 'Modules\\';
+        }
+
+        return $this->laravel->getNamespace();
+    }    
+
+    protected function getPath($name)
+    {
+        $name = Str::replaceFirst($this->rootNamespace(), '', $name);
+        $namespace = config('admin.route.namespace', 'App\\Admin\\Controllers');
+        if(explode('\\', $namespace)[0] == 'Modules') {
+            return base_path('modules/').str_replace('\\', '/', $name).'.php';
+        }        
+
+        return $this->laravel['path'].'/'.str_replace('\\', '/', $name).'.php';
+    }    
 }
