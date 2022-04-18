@@ -40,6 +40,13 @@ Config your composer.json
     "omaicode/laravel-admin-media-manager": "*@dev",
     "omaicode/laravel-admin-multi-language": "*@dev"
   },
+  "autoload": {
+        "psr-4": {
+            ...
+            "Modules\\": "modules/"
+            ...
+        }
+  },
   "repositories": [
     {
       "type": "path",
@@ -60,6 +67,7 @@ Laravel Modules documentation: [Laravel Modules](https://nwidart.com/laravel-mod
 First install admin: 
 
 ```bash
+php artisan admin:publish
 php artisan admin:install
 ```
 
