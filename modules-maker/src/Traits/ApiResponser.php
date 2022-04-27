@@ -22,7 +22,7 @@ trait ApiResponser
             $response = array_merge($response, $append);
         }
 
-        return response()->json($response, $code);
+        return response()->json($response, 200);
     }
 
     protected function errorResponse($message = null, $code): JsonResponse
@@ -32,6 +32,6 @@ trait ApiResponser
             'code' => $code,
             'message' => $message ? $message : Response::$statusTexts[$code],
             'data' => null
-        ], $code);
+        ], 200);
     }
 }

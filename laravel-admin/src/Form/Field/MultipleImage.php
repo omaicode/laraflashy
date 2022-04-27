@@ -46,18 +46,22 @@ class MultipleImage extends MultipleFile
         $this->name = $uuid.'.'.$image->getClientOriginalExtension();        
 
         $this->upload($image);
-        $this->uploadAndDeleteOriginalThumbnail($image);
+        $path = $this->uploadAndDeleteOriginalThumbnail($image);
 
-        app(MediaRepository::class)->create([
-            'disk' =>  config('admin.extensions.media-manager.disk', 'public'),
-            'uuid' => $uuid,
-            'path' => $this->getDirectory(),
-            'file_name' => $this->name,
-            'extension' => $image->getClientOriginalExtension(),
-            'mime'      => $image->getMimeType(),
-            'size'      => $image->getSize()
-        ]);
-        
-        return $uuid;
+        if(class_exists('MediaRepository')) {
+            app(MediaRepository::class)->create([
+                'disk' =>  config('admin.extensions.media-manager.disk', 'public'),
+                'uuid' => $uuid,
+                'path' => $this->getDirectory(),
+                'file_name' => $this->name,
+                'extension' => $image->getClientOriginalExtension(),
+                'mime'      => $image->getMimeType(),
+                'size'      => $image->getSize()
+            ]);
+            
+            return $uuid;
+        }
+
+        return $path;
     }
 }

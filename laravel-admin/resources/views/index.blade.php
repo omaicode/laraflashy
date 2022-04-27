@@ -38,7 +38,7 @@
 
     @include('admin::partials.sidebar')
 
-    <div class="content-wrapper" id="pjax-container">
+    <div class="content-wrapper" @if(!isset($disablePjax)) id="pjax-container" @elseif(isset($disablePjax) && !$disablePjax) id="pjax-container" @endif>
         {!! Admin::style() !!}
         <div id="app">
         @yield('content')

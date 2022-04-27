@@ -2,8 +2,10 @@
 
 namespace Omaicode\Admin\Form\Field;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Modules\Media\Repositories\Interfaces\MediaRepository;
+use ReflectionException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Image extends File
@@ -48,17 +50,25 @@ class Image extends File
 
         $this->uploadAndDeleteOriginalThumbnail($image);
 
-        app(MediaRepository::class)->create([
-            'disk' =>  config('admin.extensions.media-manager.disk', 'public'),
-            'uuid' => $uuid,
-            'path' => $this->getDirectory(),
-            'file_name' => $this->name,
-            'extension' => $image->getClientOriginalExtension(),
-            'mime'      => $image->getMimeType(),
-            'size'      => $image->getSize()
-        ]);
+        try {
+            if(class_exists('MediaRepository')) {
+                app(MediaRepository::class)->create([
+                    'disk' =>  config('admin.extensions.media-manager.disk', 'public'),
+                    'uuid' => $uuid,
+                    'path' => $this->getDirectory(),
+                    'file_name' => $this->name,
+                    'extension' => $image->getClientOriginalExtension(),
+                    'mime'      => $image->getMimeType(),
+                    'size'      => $image->getSize()
+                ]);
+        
+                return $uuid;
+            }
+        } catch(ReflectionException $e) {
+            Log::error("MediaRepository does not exists. Skipping...");
+        }
 
-        return $uuid;
+        return $path;
     }
 
     /**

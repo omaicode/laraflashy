@@ -82,9 +82,7 @@ class ConfigController
         });
         $grid->value();
         $grid->description();
-
         $grid->created_at();
-        $grid->updated_at();
 
         $grid->filter(function ($filter) {
             $filter->disableIdFilter();

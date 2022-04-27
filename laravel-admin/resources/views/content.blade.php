@@ -1,4 +1,4 @@
-@extends('admin::index', ['header' => strip_tags($header)])
+@extends('admin::index', ['header' => strip_tags($header), 'disablePjax' => isset($disablePjax) ? $disablePjax : false])
 
 @section('content')
     <section class="content-header">
