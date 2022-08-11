@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 trait ApiResponser
 {
-    protected function successResponse($data = null, $message = null, $code = 200, $append = []): JsonResponse
+    protected function successResponse($data = null, $message = null, $code = 0, $append = []): JsonResponse
     {
         $response = [
             'success' => true,
