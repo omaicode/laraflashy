@@ -14,7 +14,7 @@ trait ApiResponser
         $response = [
             'success' => true,
             'code' => $code,
-            'message' => $message ? $message : Response::$statusTexts[$code],
+            'message' => $message,
             'data' => $data
         ];
 
@@ -30,7 +30,7 @@ trait ApiResponser
         return response()->json([
             'success' => false,
             'code' => $code,
-            'message' => $message ? $message : Response::$statusTexts[$code],
+            'message' => $message,
             'data' => null
         ], 200);
     }
