@@ -50,8 +50,9 @@ class Image extends File
         $this->uploadAndDeleteOriginalThumbnail($image);
 
         try {
-            $media_class = 'Modules\\Media\\Repositories\\Interfaces\\MediaRepository';
-            if(class_exists($media_class)) {
+            $media_class = 'Modules\Media\Repositories\Interfaces\MediaRepository';
+
+            if(interface_exists($media_class)) {
                 app($media_class)->create([
                     'disk' =>  config('admin.extensions.media-manager.disk', 'public'),
                     'uuid' => $uuid,

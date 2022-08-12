@@ -48,8 +48,10 @@ class MultipleImage extends MultipleFile
         $this->upload($image);
         $path = $this->uploadAndDeleteOriginalThumbnail($image);
 
-        if(class_exists('MediaRepository')) {
-            app(MediaRepository::class)->create([
+        $media_class = 'Modules\Media\Repositories\Interfaces\MediaRepository';
+
+        if(interface_exists($media_class)) {
+            app($media_class)->create([
                 'disk' =>  config('admin.extensions.media-manager.disk', 'public'),
                 'uuid' => $uuid,
                 'path' => $this->getDirectory(),
